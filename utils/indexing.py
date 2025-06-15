@@ -1,11 +1,11 @@
 import os
-import streamlit as st
-import tempfile
 from pathlib import Path
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore
+import streamlit as st
+import tempfile
 
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 qdrant_api_key = st.secrets["QDRANT_API_KEY"]
