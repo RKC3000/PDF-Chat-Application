@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from langchain_qdrant import QdrantVectorStore
 from langchain_openai import OpenAIEmbeddings
