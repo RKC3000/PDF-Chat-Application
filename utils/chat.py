@@ -3,7 +3,11 @@ from langchain_openai import OpenAIEmbeddings
 from openai import OpenAI
 from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
+qdrant_api_key = st.secrets["QDRANT_API_KEY"]
+openai_api_key = st.secrets["OPENAI_API_KEY"]
+
+os.environ["OPENAI_API_KEY"] = openai_api_key
 
 client = OpenAI()
 
