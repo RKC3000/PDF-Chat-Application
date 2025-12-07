@@ -6,9 +6,12 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore
 import streamlit as st
 import tempfile
+from dotenv import load_dotenv
 
-openai_api_key = st.secrets["OPENAI_API_KEY"]
-qdrant_api_key = st.secrets["QDRANT_API_KEY"]
+load_dotenv()
+
+openai_api_key = os.getenv("OPENAI_API_KEY")
+qdrant_api_key = os.getenv("QDRANT_API_KEY")
 
 os.environ["OPENAI_API_KEY"] = openai_api_key
 

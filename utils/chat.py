@@ -5,16 +5,17 @@ from langchain_openai import OpenAIEmbeddings
 from openai import OpenAI
 from dotenv import load_dotenv
 
-# load_dotenv()
-qdrant_api_key = st.secrets["QDRANT_API_KEY"]
-openai_api_key = st.secrets["OPENAI_API_KEY"]
+load_dotenv()
+
+qdrant_api_key = os.getenv("QDRANT_API_KEY")
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 os.environ["OPENAI_API_KEY"] = openai_api_key
 
 client = OpenAI()
 
 def get_vector_store(collection_name):
-    embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
+    embedding_model = OpenAIEmbeddings(model="text-embedding-3-large") # This is the embedding model that will be used to create embeddings for the documents.
     return QdrantVectorStore.from_existing_collection(
         url="https://07b80d28-afc8-4779-998f-63c81d8a30ca.eu-west-2-0.aws.cloud.qdrant.io:6333",
         api_key=qdrant_api_key,
@@ -30,16 +31,19 @@ def ask_question(vector_db, query: str):
     )
 
     system_prompt = f"""
-    You are an assistant helping the user understand the content of a PDF file.
+    You are an intelligent assistant helping a user chat with their PDF.
 
-    Answer only using the context provided below, and guide the user to the correct page number when relevant.
+    Instructions:
+    1. Primary Source: Answer the question using ONLY the provided Context from the PDF.
+    2. Elaboration: You may briefly use general knowledge or common sense to explain concepts or fill logical gaps, provided it is directly relevant to the context.
+    3. Uncertainty: If the answer cannot be derived from the context at all, simply state "I am not sure about the answer based on the provided document."
 
     Context:
     {context}
     """
 
     response = client.chat.completions.create(
-        model="gpt-4.1",
+        model="gpt-4o",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": query}
