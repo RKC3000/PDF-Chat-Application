@@ -17,7 +17,7 @@ client = OpenAI()
 def get_vector_store(collection_name):
     embedding_model = OpenAIEmbeddings(model="text-embedding-3-large") # This is the embedding model that will be used to create embeddings for the documents.
     return QdrantVectorStore.from_existing_collection(
-        url="https://07b80d28-afc8-4779-998f-63c81d8a30ca.eu-west-2-0.aws.cloud.qdrant.io:6333",
+        url="https://7d867feb-e640-48d8-bfcb-e992728e06c5.eu-west-2-0.aws.cloud.qdrant.io:6333",
         api_key=qdrant_api_key,
         collection_name=collection_name,
         embedding=embedding_model
