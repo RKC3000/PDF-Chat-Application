@@ -31,7 +31,7 @@ def process_pdf(pdf_file, collection_name: str):
     embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
     QdrantVectorStore.from_documents(
         documents=split_docs,
-        url="https://07b80d28-afc8-4779-998f-63c81d8a30ca.eu-west-2-0.aws.cloud.qdrant.io:6333",
+        url="https://7d867feb-e640-48d8-bfcb-e992728e06c5.eu-west-2-0.aws.cloud.qdrant.io:6333",
         api_key=qdrant_api_key,
         collection_name=collection_name,
         embedding=embedding_model
